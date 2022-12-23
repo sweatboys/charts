@@ -1,0 +1,182 @@
+# Default values for open-discogs-api.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: ghcr.io/sweatboys/open-discogs-api
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: [ ]
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: { }
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: { }
+
+podSecurityContext: { }
+# fsGroup: 2000
+
+securityContext: { }
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+# runAsUser: 1000
+
+# application settings.
+# update service settings accordingly...:)
+application:
+  # application name.
+  name: open-discogs-api
+  api:
+    # api server port
+    port: 8080
+  management:
+    # management server port
+    port: 8081
+  # postgres configuration
+  database:
+    # postgres host address including port
+    host: ''
+    # postgres username
+    user: ''
+    # postgres password
+    pass: ''
+  # url with FQDN for this deployment.
+  url: 'http://localhost:8080'
+
+otel:
+  sdk:
+    # Disable the SDK for all signals
+    disabled: true
+  resource:
+    # Key-value pairs to be used as resource attributes
+    attributes: ''
+  service:
+    # Logical name of the service
+    name: open-discogs-api
+    # A namespace for service.name
+    namespace: 'Public'
+      # The string ID of the service instance
+    instance:
+      id: ''
+    # The version string of the service API or implementation
+    version: ''
+  # Log level used by the SDK logger
+  log:
+    level: INFO
+  # Propagators to be used as a comma-separated list
+  # "tracecontext": W3C Trace Context
+  # "baggage": W3C Baggage
+  # "b3": B3 Single
+  # "b3multi": B3 Multi
+  # "jaeger": Jaeger
+  # "xray": AWS X-Ray (third party)
+  # "ottrace": OT Trace (third party)
+  # "none": No automatically configured propagator.
+  propagators: 'tracecontext,baggage'
+  traces:
+    # Sampler to be used for traces
+    # "always_on": AlwaysOnSampler
+    # "always_off": AlwaysOffSampler
+    # "traceidratio": TraceIdRatioBased
+    # "parentbased_always_on": ParentBased(root=AlwaysOnSampler)
+    # "parentbased_always_off": ParentBased(root=AlwaysOffSampler)
+    # "parentbased_traceidratio": ParentBased(root=TraceIdRatioBased)
+    # "parentbased_jaeger_remote": ParentBased(root=JaegerRemoteSampler)
+    # "jaeger_remote": JaegerRemoteSampler
+    # "xray": AWS X-Ray Centralized Sampling (third party)
+    sampler: ''
+    # String value to be used as the sampler argument
+    args: ''
+    # Trace exporter to be used
+    # "otlp": OTLP
+    # "jaeger": export in Jaeger data model
+    # "zipkin": Zipkin (Defaults to protobuf format)
+    # "none": No automatically configured exporter for traces.
+    exporter: ''
+
+  # Span Limits
+  metrics:
+    # Metrics exporter to be used
+    # "otlp": OTLP
+    # "prometheus": Prometheus
+    # "none": No automatically configured exporter for metrics.
+    exporter: 'none'
+    examplar:
+      # Filter for which measurements can become Exemplars.
+      # "none": No measurements are eligible for exemplar sampling.
+      # "all": All measurements are eligible for exemplar sampling.
+      # "with_sampled_trace": Only allow measurements with a sampled parent span in context.
+      filter: ''
+
+  logs:
+    # Logs exporter to be used
+    # "otlp": OTLP
+    # "none": No automatically configured exporter for logs.
+    exporter: 'none'
+
+
+# service settings
+service:
+  type: ClusterIP
+  api:
+    port: 8080
+  management:
+    port: 8081
+
+
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: { }
+    # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: [ ]
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: { }
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+#   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: { }
+
+tolerations: [ ]
+
+affinity: { }
