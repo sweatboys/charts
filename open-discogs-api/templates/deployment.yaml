@@ -117,9 +117,8 @@ spec:
             {{- end}}
             {{- if .Values.otel.sdk.disabled }}
             - name: OTEL_SDK_DISABLED
-              value: {{.Values.otel.sdk.disabled}}
+              value: {{.Values.otel.sdk.disabled | quote }}
             {{- end}}
-
             {{- if .Values.application.name}}
             - name: SPRING_APPLICATION_NAME
               value: {{ .Values.application.name }}
