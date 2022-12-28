@@ -127,11 +127,11 @@ spec:
               value: open-discogs-api
             {{- end}}
             - name: API_DB_HOST
-              value: {{ required "application.database.host cannot be empty or nil" .Values.application.database.host }}
+              value: {{ .Values.application.database.host }}
             - name: API_DB_USERNAME
-              value: {{ required "application.database.user cannot be empty or nil" .Values.application.database.user }}
+              value: {{ .Values.application.database.user }}
             - name: API_DB_PASSWORD
-              value: {{ required "application.database.pass cannot be empty or nil" .Values.application.database.pass }}
+              value: {{ .Values.application.database.pass }}
             {{- if .Values.application.url }}
             - name: API_SERVER_URL
               value: {{ .Values.application.url }}
