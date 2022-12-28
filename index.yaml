@@ -2,13 +2,13 @@ apiVersion: v1
 entries:
   open-discogs-api:
   - apiVersion: v2
-    appVersion: 1.5.4
-    created: "2022-12-28T19:01:57.018812+09:00"
+    appVersion: v1.5.4
+    created: "2022-12-28T19:07:10.817674+09:00"
     description: A Helm chart for Kubernetes
-    digest: 4df7c918c2837d152c6f820b04c3b9c6fec246d203379dd9549c483681d725f5
+    digest: 478b521f316ce23099335533cb52cd317c1920b13be140a0e0fdc5785554e114
     name: open-discogs-api
     type: application
     urls:
     - open-discogs-api-1.5.3.tgz
     version: 1.5.3
-generated: "2022-12-28T19:01:57.018084+09:00"
+generated: "2022-12-28T19:07:10.816348+09:00"
